@@ -10,16 +10,10 @@ class Day6(Day):
 
 		while True:
 			bank_index = banks.index(max(banks))
-			amount_for_each = banks[bank_index] / (len(banks) - 1)
+			amount = banks[bank_index]
+			banks[bank_index] = 0
 
-			if not amount_for_each == int(amount_for_each):
-				amount_for_each = math.floor(amount_for_each)
-				banks[bank_index] = 1
-			else:
-				banks[bank_index] = 0
-
-			amount_for_each = int(amount_for_each)
-			self.increase_selective(banks, bank_index, amount_for_each)
+			self.dispatch_from_index(banks, bank_index + 1, amount)
 
 			str_bank = self.banks_to_str(banks)
 			if str_bank in configs:
@@ -29,11 +23,12 @@ class Day6(Day):
 		print(len(configs))
 
 	@staticmethod
-	def increase_selective(banks: list, avoid: int, amount: int):
-		for i, b in enumerate(banks):
-			if not i == avoid:
-				banks[i] += amount
-		return banks
+	def dispatch_from_index(banks: list, index: int, amount: int):
+		while amount > 0:
+			index = index % len(banks)
+			banks[index] += 1
+			amount -= 1
+			index += 1
 
 	def banks_to_str(self, banks):
 		return "/".join(self.to_string(banks))

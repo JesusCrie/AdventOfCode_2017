@@ -12,6 +12,7 @@ def start(day: Day):
 
 
 if __name__ == "__main__":
+	
 	start(Day1(file = "resources/day1.input"))
 	start(Day2(file = "resources/day2.input"))
 	start(Day3(inp = "312051"))
