@@ -3,7 +3,7 @@ from app.day import Day
 
 class Day6(Day):
 
-	def run(self):
+	def part_1(self):
 		banks = self.to_int(self.input.split())
 		configs = list()
 		configs.append(self.banks_to_str(banks))
@@ -21,6 +21,9 @@ class Day6(Day):
 			configs.append(str_bank)
 
 		print(len(configs))
+
+	def part_2(self):
+		pass
 
 	@staticmethod
 	def dispatch_from_index(banks: list, index: int, amount: int):

@@ -3,7 +3,7 @@ from app.day import Day
 
 class Day5(Day):
 
-	def run(self):
+	def part_1(self):
 		instructions = self.to_int(self.input.splitlines())
 		steps = 0
 		step = 0
@@ -15,3 +15,6 @@ class Day5(Day):
 			steps += 1
 
 		print(steps)
+
+	def part_2(self):
+		pass

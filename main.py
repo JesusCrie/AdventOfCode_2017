@@ -8,12 +8,16 @@ from app.day6 import Day6
 
 
 def start(day: Day):
-	day.run()
+	print(">>> " + day.__class__.__name__ + " <<<")
+	print("> Part 1")
+	day.part_1()
+	print("> Part 2")
+	day.part_2()
 
 
 if __name__ == "__main__":
-	
-	start(Day1(file = "resources/day1.input"))
+
+	start(Day1(file = "resources/day1.input", file_2 = "resources/day1_2.input"))
 	start(Day2(file = "resources/day2.input"))
 	start(Day3(inp = "312051"))
 	start(Day4(file = "resources/day4.input"))

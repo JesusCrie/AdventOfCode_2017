@@ -5,7 +5,7 @@ from app.day import Day
 
 class Day3(Day):
 
-	def run(self):
+	def part_1(self):
 		self.input = int(self.input)
 
 		corner = self.get_grid_corner(self.input)
@@ -36,6 +36,9 @@ class Day3(Day):
 		print("Corner: " + str(corner) + " (" + str(size) + ")")
 		print("Target -> X: " + str(target_x) + ", Y: " + str(target_y))
 		print(distance)
+
+	def part_2(self):
+		pass
 
 	@staticmethod
 	def get_grid_corner(target: int):
