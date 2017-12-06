@@ -1,4 +1,10 @@
-from app.day import *
+from app.day import Day
+from app.day1 import Day1
+from app.day2 import Day2
+from app.day3 import Day3
+from app.day4 import Day4
+from app.day5 import Day5
+from app.day6 import Day6
 
 
 def start(day: Day):
