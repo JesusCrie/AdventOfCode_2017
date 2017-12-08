@@ -16,10 +16,8 @@ def start(day: Day):
 
 
 if __name__ == "__main__":
-
 	start(Day1(file = "resources/day1.input", file_2 = "resources/day1_2.input"))
 	start(Day2(file = "resources/day2.input", file_2 = "resources/day2.input"))
-	# start(Day2(file = "resources/day2.input", inp_2 = "5	9	2	8\n9	4	7	3\n3	8	6	5"))
 	start(Day3(inp = "312051"))
 	start(Day4(file = "resources/day4.input"))
 	start(Day5(file = "resources/day5.input"))
