@@ -3,6 +3,38 @@ import math
 from app.day import Day
 
 
+class GridPos:
+
+	def __init__(self, x: int, y: int, value: int = 0):
+		self.x = x
+		self.y = y
+		self.value = value
+
+	def __eq__(self, other):
+		if other is not GridPos:
+			return False
+		return self.x == other.x and self.y == other.y
+
+	def __str__(self):
+		return "[(" + str(self.x) + ", " + str(self.y) + ") -> " + str(self.value) + "]"
+
+
+class Grid:
+
+	def __init__(self):
+		self.cells = list()
+
+	def add(self, pos: GridPos):
+		self.cells.append(pos)
+
+	def get(self, x: int, y: int):
+		target_index = self.cells.index(GridPos(x, y))
+		if target_index is None:
+			return GridPos(x, y)
+		else:
+			return self.cells[target_index]
+
+
 class Day3(Day):
 
 	def part_1(self):
@@ -38,7 +70,20 @@ class Day3(Day):
 		print(distance)
 
 	def part_2(self):
-		pass
+		grid = Grid()
+		grid.add(GridPos(0, 0, 1))
+
+		last_x = 0
+		last_y = 0
+		side = 1
+		while side < 10:
+			x = last_x + 1
+			y = last_y
+			grid.add(GridPos(x, y))
+			while y <= side:
+				y += 1
+				grid.add(GridPos(x, y))
+				# TODO flemme
 
 	@staticmethod
 	def get_grid_corner(target: int):
