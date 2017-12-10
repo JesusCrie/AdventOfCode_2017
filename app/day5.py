@@ -17,4 +17,17 @@ class Day5(Day):
 		print(steps)
 
 	def part_2(self):
-		pass
+		instructions = self.to_int(self.input_2.splitlines())
+		steps = 0
+		step = 0
+		while 0 <= step < len(instructions):
+			current_step = step
+			step += instructions[current_step]
+
+			if instructions[current_step] >= 3:
+				instructions[current_step] -= 1
+			else:
+				instructions[current_step] += 1
+			steps += 1
+
+		print(steps)

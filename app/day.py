@@ -16,7 +16,7 @@ class Day(object):
 		elif inp_2 is not None:
 			self.input_2 = inp_2
 		else:
-			self.input_2 = str()
+			self.input_2 = self.input
 
 		self.to_int = lambda x_list: [int(x) for x in x_list]
 		self.to_string = lambda x_list: [str(x) for x in x_list]
