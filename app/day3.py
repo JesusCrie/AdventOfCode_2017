@@ -63,14 +63,6 @@ class Grid:
 	def get_last(self):
 		return self.cells[len(self.cells) - 1]
 
-	def get_size(self):
-		x = 1
-		test_val = self.get_value(x, 0)
-		while not test_val == 0:
-			x += 1
-			test_val = self.get_value(x, 0)
-		return x * 2 - 1
-
 
 class Day3(Day):
 
@@ -146,7 +138,6 @@ class Day3(Day):
 				break
 
 		print(grid.get_last().value)
-		self.grid = grid
 
 	@staticmethod
 	def get_grid_corner(target: int):
