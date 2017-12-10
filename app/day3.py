@@ -11,7 +11,7 @@ class GridPos:
 		self.value = value
 
 	def __eq__(self, other):
-		if other is not GridPos:
+		if not isinstance(other, GridPos):
 			return False
 		return self.x == other.x and self.y == other.y
 
@@ -23,16 +23,53 @@ class Grid:
 
 	def __init__(self):
 		self.cells = list()
+		self.cells.append(GridPos(0, 0, 1))
 
 	def add(self, pos: GridPos):
 		self.cells.append(pos)
+		return pos
+
+	def __add_and_set__(self, pos: GridPos):
+		top_left = self.get_value(pos.x - 1, pos.y + 1)
+		top = self.get_value(pos.x, pos.y + 1)
+		top_right = self.get_value(pos.x + 1, pos.y + 1)
+		left = self.get_value(pos.x - 1, pos.y)
+		right = self.get_value(pos.x + 1, pos.y)
+		bottom_left = self.get_value(pos.x - 1, pos.y - 1)
+		bottom = self.get_value(pos.x, pos.y - 1)
+		bottom_right = self.get_value(pos.x + 1, pos.y - 1)
+
+		pos.value = top_left + top + top_right + left + right + bottom_left + bottom + bottom_right
+		self.add(pos)
+		return pos
+
+	def add_and_set(self, x: int, y: int):
+		return self.__add_and_set__(GridPos(x, y))
 
 	def get(self, x: int, y: int):
-		target_index = self.cells.index(GridPos(x, y))
+		try:
+			target_index = self.cells.index(GridPos(x, y))
+		except ValueError:
+			target_index = None
+
 		if target_index is None:
 			return GridPos(x, y)
 		else:
 			return self.cells[target_index]
+
+	def get_value(self, x: int, y: int):
+		return self.get(x, y).value
+
+	def get_last(self):
+		return self.cells[len(self.cells) - 1]
+
+	def get_size(self):
+		x = 1
+		test_val = self.get_value(x, 0)
+		while not test_val == 0:
+			x += 1
+			test_val = self.get_value(x, 0)
+		return x * 2 - 1
 
 
 class Day3(Day):
@@ -70,20 +107,46 @@ class Day3(Day):
 		print(distance)
 
 	def part_2(self):
+		self.input_2 = int(self.input_2)
 		grid = Grid()
-		grid.add(GridPos(0, 0, 1))
+		size = 3
+		x = 0
+		y = 0
+		while True:
+			try:
+				# generate right
+				x += 1
+				grid.add_and_set(x, y)
+				self.check_value(grid.get_last())
+				for xx in range(size - 2):
+					y += 1
+					grid.add_and_set(x, y)
+					self.check_value(grid.get_last())
 
-		last_x = 0
-		last_y = 0
-		side = 1
-		while side < 10:
-			x = last_x + 1
-			y = last_y
-			grid.add(GridPos(x, y))
-			while y <= side:
-				y += 1
-				grid.add(GridPos(x, y))
-				# TODO flemme
+				# generate top
+				for xx in range(size - 1):
+					x -= 1
+					grid.add_and_set(x, y)
+					self.check_value(grid.get_last())
+
+				# generate left
+				for xx in range(size - 1):
+					y -= 1
+					grid.add_and_set(x, y)
+					self.check_value(grid.get_last())
+
+				# generate bottom
+				for xx in range(size - 1):
+					x += 1
+					grid.add_and_set(x, y)
+					self.check_value(grid.get_last())
+
+				size += 2
+			except StopIteration:
+				break
+
+		print(grid.get_last().value)
+		self.grid = grid
 
 	@staticmethod
 	def get_grid_corner(target: int):
@@ -112,3 +175,7 @@ class Day3(Day):
 		right.reverse()
 
 		return top, right, bottom, left
+
+	def check_value(self, to_check: GridPos):
+		if to_check.value > self.input_2:
+			raise StopIteration
