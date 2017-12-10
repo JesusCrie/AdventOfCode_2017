@@ -5,6 +5,7 @@ from app.day3 import Day3
 from app.day4 import Day4
 from app.day5 import Day5
 from app.day6 import Day6
+from app.day7 import Day7
 
 
 def start(day: Day, skip_1: bool = False, skip_2: bool = False):
@@ -22,3 +23,4 @@ if __name__ == "__main__":
 	start(Day4(file = "resources/day4.input"))
 	start(Day5(file = "resources/day5.input"), skip_2 = True)
 	start(Day6(inp = "14 0 15 12 11 11 3 5 1 6 8 4 9 1 8 4"), skip_1 = True)
+	start(Day7(file = "resources/day7.input"))
